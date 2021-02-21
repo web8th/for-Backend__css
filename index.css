@@ -1,0 +1,93 @@
+/* --------- */
+/* Fundation */
+/* --------- */
+/* reset */
+
+/* base */
+
+/* --------- */
+/* Layout */
+/* --------- */
+/* l-header */
+.l-header {
+  background-color: pink;
+}
+
+/* l-content */
+.l-content {
+  display: block;
+  background-color: lightblue;
+}
+@media (min-width: 640px) {
+  .l-content {
+    float: left;
+    width: 70%;
+  }
+}
+
+/* l-sidebar */
+.l-sidebar {
+  display: block;
+  background-color: lightgreen;
+}
+@media (min-width: 640px) {
+  .l-sidebar {
+    float: right;
+    width: 30%;
+  }
+}
+
+/* l-footer */
+.l-footer {
+  background-color: lightyellow;
+}
+
+/* --------- */
+/* Object */
+/* --------- */
+/* Compornent */
+/* ---------- */
+/* 目次 */
+/* button */
+/* image */
+/* text */
+
+/* ------- */
+/* Project */
+/* ------- */
+
+/* ------- */
+/* Utility */
+.u-namingRules__p--red {
+  color: red;
+}
+
+.u-flocss__p--red {
+  color: red;
+}
+
+.u-conclusion__p--red {
+  color: red;
+}
+
+.u-clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.u-header__p {
+  margin-bottom: 0;
+}
+
+.u-content__p {
+  margin: 0;
+}
+
+.u-sidebar__p {
+  margin: 0;
+}
+.u-footer__p {
+  margin-top: 0;
+}
+/* ------- */

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS設計と命名規則</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <h1>CSS設計と命名規則</h1>
+    <section class="l-namingRules">
+        <h2>Ⅰ．命名規則について</h2>
+        <h3>ⅰ）キャメルケース</h3>
+        <p>camelCase:単語の先頭を大文字にしてつなげる</p>
+        <p>BEM記法や後述のFLOCSSと相性が良さそうなのでこれを使います。</p>
+        <h3>ⅱ）BEM記法</h3>
+        <img src="image/bem.jpg" alt="BEM記法">
+        <p>camelCaseでないと上記のようにarticle-listの-(ハイフン)がModifierへの繋ぎやFLOCSSの接頭辞というもの混同しやすくなります。</p>
+        <p class="u-namingRules__p--red">article-listからarticleList__itemへ</p>
+    </section>
+    <section class="l-flocss">
+        <h2>Ⅱ．FLOCSS(フロックス)でCSS設計</h2>
+        <div>
+            <h3>ⅰ）FLOCSSの基本</h3>
+            <ul>
+                <li>Fundation：下地、サイト共通の基本（例）reset,baseなど</li>
+                <li>Layout：サイトの大枠、Objectの配置をきめるもの、そのページでオンリーワンのもの（例）l-header,l-main,l-footerなど</li>
+                <li>Object：下のCとPで使いまわせる部分をまとめて、Uは個々の微調整</li>
+                <ul>
+                    <li>Compornent：ボタンやロゴ、フォームなどの各パーツ</li>
+                    <li>Project：各パーツの集まり、グループ化したもの</li>
+                    <li>Utility：marginは基本ここに、その他ここだけ色を変えたいとか、clearfixもここ</li>
+                </ul>
+            </ul>
+            <p class="u-flocss__p--red">大事なのはFLO(CPU)の順に記述すること</p>
+        </div>
+        <div>
+            <h3>ⅱ）何が良い点か</h3>
+            <ol>
+                <li>現状国内では１番(？)メジャーらしい→勉強しておくと現場に馴染みやすい？</li>
+                <li>下にいく程詳細度が高くなっていて、CSSの上書きの規則(カスケード)とマッチする→予期しない上書きが起こりにくい→チームで分担しやすい</li>
+                <li>Layoutを先に当てることで大まかなサイトの作りとレスポンシブデザインを意識しやすい</li>
+                <li>微調整をUtilityに分けることで、共通のパーツ(Compornent)から効率的に統一感のあるProjectをつくることができる→その場しのぎのコードを減らせるので、可読性やメンテナンス性が上がる
+                </li>
+            </ol>
+
+            <p>※Layoutに当ててレスポンシブデザイン確認する例</p>
+            <header class="l-header">
+                <p class="u-header__p">l-header</p>
+            </header>
+            <main class="u-clearfix">
+                <content class="l-content">
+                    <p class="u-content__p">l-content</p>
+                </content>
+                <sidebar class="l-sidebar">
+                    <p class="u-content__p">l-sidebar</p>
+                </sidebar>
+            </main>
+            <footer class="l-footer">
+                <p class="u-footer__p">l-footer</p>
+            </footer>
+            <p>このなかにProjectを配置していくんだなあと意識する</p>
+
+            <p>※CompornentとProjectの違いは？？</p>
+            <a href="https://qiita.com/uggds/items/d904b2f9a103c37a25fa" target="_blank">参考サイト</a>
+            <p>パワーポイントやXDの１つのテキストエリアや図形がCompornent、それらをグループ化したものがProjectというイメージ</p>
+
+            <p>※Layoutレイヤーの定義</p>
+            <a href="https://www.to-r.net/media/flocss-03/">参考サイト</a>
+            <p>少しわかりにくいですが、</p>
+            <p>Layoutレイヤーは、ただ単純にページにおけるヘッダー、フッター、サイドバーなどの要素を分けるためだけに存在しているレイヤー。ページにおいてただ一つの要素につけるのでID名でつけても良いし、classで統一すると決めてもよい。性質上、運用においても、まったくスタイリングがなかったり、せいぜいz-indexであったりpaddingをいくらか設定したりということはよくある。そういう時に「あれ、Layoutレイヤー、ちゃんと使えているのだろうか？」と不安になる必要はないということ。俯瞰的に見ると、その部分を担当できるのは、Layoutレイヤーしかないから。
+            </p>
+            <p>という話かと。あとは</p>
+            <p class="u-flocss__p--red">
+                最近のwebサイトでは、横幅に応じたheaderやfooterの調整が多々発生しがち。例えばレスポンシブwebサイトにおいて「ある幅でサイドバーが消える」「ヘッダーの高さが減る」といった場合もLayoutレイヤーで担当できる。
+            </p>
+            <p>あたりも大事かなと思いました。</p>
+        </div>
+        <div>
+            <h3>ⅲ）フォルダ構成</h3>
+            <img src="image/directory.jpg" alt="フォルダ構成"><br>
+            <p>上記サイトではscssを使っていて、最終style.scssにすべてインポートしてまとめている形ですが、私たちはscssまでは勉強していないのでそこまではしません。</p>
+            <p>ですがフォルダ構成としては概ねこの形で</p>
+            <p>それぞれのcssファイルを作成し、コピペで一つのファイルにまとめるか、一つずつcssファイルとしてfunction.phpに読み込む形になるかと思います。</p>
+        </div>
+        <div>
+            <h3>ⅳ）FLOCSS命名の際の接頭辞(プレフィックス)</h3>
+            <p>LayoutやObjectの命名の際は頭文字をクラス名につけてどの種類の変更かわかりやすくする。</p>
+            <img src="image/prefix.jpg" width="600px" alt="接頭辞"><br>
+        </div>
+    </section>
+    <section class="conclusion">
+        <h2>Ⅲ．FLOCSS×BEM記法＋camelCase</h2>
+        <p>最終的な命名規則としては</p>
+        <img src="image/floccsbem.jpg" alt="FLOCSS接頭辞＋BEM"><br>
+        <p>これにcamelCaseを合わせて</p>
+        <p class="u-conclusion__p--red">p-articleList__のような形で命名をしてゆきます。</p>
+    </section>
+    <a href="https://flying-sheep.info/2020/04/04/%E4%BF%AE%E6%AD%A3%E3%80%81%E8%A6%81%E7%B4%A0%E8%BF%BD%E5%8A%A0%E3%81%AB%E5%BC%B7%E3%81%84%E3%82%B3%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E6%96%B9%E6%B3%95%E3%80%90bem%E8%A8%98%E6%B3%95/" target="_blank">参考サイト</a>
+</body>
+
+</html>
